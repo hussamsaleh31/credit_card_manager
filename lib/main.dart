@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -41,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController nameController;
   TextEditingController monthController;
   TextEditingController yearController;
+  TextEditingController codeController;
   int addedId;
   CreditCard newCard;
   var curDate = DateTime.now();
@@ -79,6 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
 
+    codeController = new TextEditingController();
+    codeController.addListener(() {
+      setState(() {
+        newCard.cardCode = int.tryParse(codeController.text);
+      });
+    });
+
     yearController = new TextEditingController();
     yearController.addListener(() {
       setState(() {
@@ -108,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
     nameController.dispose();
     monthController.dispose();
     yearController.dispose();
+    codeController.dispose();
     super.dispose();
   }
 
@@ -167,6 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
         shouldInsert = false;
         _cards[i].cardMonth = cardToAdd.cardMonth;
         _cards[i].cardYear = cardToAdd.cardYear;
+        _cards[i].cardCode=cardToAdd.cardCode;
       }
     }
     setState(() {
@@ -179,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
     nameController.clear(); // newCard.name = null;
     monthController.clear(); // newCard.month = null;
     yearController.clear(); // newCard.year = null;
-
+    codeController.clear();
     // Save the new list of cards to shared prefs
     List<Map> dataMap = _cards.map((e) => e.toJson()).toList();
     String dataStr = jsonEncode(dataMap);
@@ -201,6 +210,10 @@ class _MyHomePageState extends State<MyHomePage> {
         newCard.cardYear >= thisYear;
   }
 
+  bool get cardCodeValid {
+    return newCard.cardCode != null && newCard.cardCode.toString().length <= 4;
+  }
+
   bool get cardMonthValid {
     return newCard.cardMonth != null &&
         newCard.cardMonth <= 12 &&
@@ -212,7 +225,8 @@ class _MyHomePageState extends State<MyHomePage> {
         newCard.cardNumber.toString().length == 16 &&
         cardNameValid &&
         cardMonthValid &&
-        cardYearValid;
+        cardYearValid &&
+        cardCodeValid;
   }
 
   @override
@@ -455,7 +469,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       flex: 1,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20.0, right: 10),
+                        padding: EdgeInsets.only(left: 10.0, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -493,6 +507,40 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    'CVV',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextField(
+                    maxLength: 4,
+                    enabled: !isAdding,
+                    controller: codeController,
+                    buildCounter: (context,
+                        {int currentLength, bool isFocused, int maxLength}) {
+                      return SizedBox.shrink();
+                    },
+                    keyboardType: TextInputType.numberWithOptions(),
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: InputDecoration(
+                      hintText: '801',
+                      hintStyle: TextStyle(color: greyColor),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 20),
                 Container(

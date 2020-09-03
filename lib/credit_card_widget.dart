@@ -90,23 +90,17 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       );
     }
 
-    return FlipCard(
-      front: FadeTransition(
-        opacity: _animationController,
-        child: SlideTransition(
-          position: Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
-              .animate(CurvedAnimation(
-                  parent: _animationController, curve: Curves.easeOut)),
-          child: Container(
+    return FadeTransition(
+      opacity: _animationController,
+      child: SlideTransition(
+        position: Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
+            .animate(CurvedAnimation(
+                parent: _animationController, curve: Curves.easeOut)),
+        child: FlipCard(
+          front: Container(
             width: 340,
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                )
-              ],
+              color: Colors.white,
               border: border,
               borderRadius: BorderRadius.circular(20),
               gradient: widget.card.cardColor != null
@@ -207,89 +201,89 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               ],
             ),
           ),
-        ),
-      ),
-      back: Container(
-        width: 340,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-            )
-          ],
-          border: border,
-          borderRadius: BorderRadius.circular(20),
-          gradient: widget.card.cardColor != null
-              ? LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: widget.card.cardColor,
+          back: Container(
+            width: 340,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
                 )
-              : null,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 30),
-            Container(
-              height: 40,
-              color: Colors.black,
+              ],
+              border: border,
+              borderRadius: BorderRadius.circular(20),
+              gradient: widget.card.cardColor != null
+                  ? LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: widget.card.cardColor,
+                    )
+                  : null,
             ),
-            SizedBox(height: 20),
-            Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(padding: const EdgeInsets.all(15)),
+                SizedBox(height: 30),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  height: 35,
-                  color: Colors.blue,
-                  child: Text(
-                    widget.card.cardName == null
-                        ? 'Name  SURNAME'
-                        : widget.card.cardName,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: widget.card.textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  height: 40,
+                  color: Colors.black,
                 ),
-                SizedBox(width: 50),
-                Container(
-                  height: 40.0,
-                  width: 60.0,
-                  decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    border: new Border.all(
-                      color: Colors.black,
-                      width: 1.0,
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Padding(padding: const EdgeInsets.all(15)),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      height: 40,
+                      width: 180,
+                      color: Color(0xff9e9e9e),
+                      child: Center(
+                        child: Text(
+                          widget.card.cardName == null
+                              ? 'Name  SURNAME'
+                              : widget.card.cardName,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: widget.card.textColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: new TextField(
-                    textAlign: TextAlign.center,
-                    decoration: new InputDecoration(
-                      hintText: '1',
-                      border: InputBorder.none,
+                    SizedBox(width: 50),
+                    Container(
+                      height: 40.0,
+                      width: 60.0,
+                      decoration: new BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        border: new Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Center(
+                        child: new Text(
+                            widget.card.cardCode?.toString() ?? '0000'),
+                      ),
                     ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.only(left: 270),
+                  child: Image.asset(
+                    'assets/images/mastercard.png',
+                    color: widget.card.textColor,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    width: 35,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 250),
-              child: Image.asset(
-                'assets/images/mastercard.png',
-                color: widget.card.textColor,
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                width: 35,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
