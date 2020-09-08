@@ -4,6 +4,7 @@ import 'package:bank/app_colors.dart';
 import 'package:bank/circle_button.dart';
 import 'package:bank/credit_card_widget.dart';
 import 'package:bank/models/card.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: MyHomePage(),
+      home: SplashScreen(
+        'assets/splash.flr',
+        (contxt) => MyHomePage(),
+        startAnimation: 'intro',
+        backgroundColor: Color(0xff181818),
+        until: () {
+          return Future.delayed(Duration(seconds: 4));
+        },
+      ),
     );
   }
 }
@@ -45,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   CreditCard newCard;
   var curDate = DateTime.now();
   int thisYear;
-
+  
   @override
   void initState() {
     _colors = [
@@ -147,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool shouldInsert = true;
     CreditCard cardToAdd = newCard.copy();
     cardToAdd.id = DateTime.now().microsecondsSinceEpoch;
+    
     for (int i = 0; i < _cards.length; i++) {
       if (cardToAdd.isSameNumber(_cards[i])) {
         if (cardToAdd.isEqual(_cards[i])) {
@@ -175,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
         shouldInsert = false;
         _cards[i].cardMonth = cardToAdd.cardMonth;
         _cards[i].cardYear = cardToAdd.cardYear;
-        _cards[i].cardCode=cardToAdd.cardCode;
+        _cards[i].cardCode = cardToAdd.cardCode;
       }
     }
     setState(() {

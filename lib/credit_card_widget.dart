@@ -53,6 +53,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     super.dispose();
   }
 
+  String getLastFourNumbers() {
+    final String lastFour = getFormattedNumber().substring(15, 19);
+    return '************   ' + lastFour;
+  }
+
   String getFormattedNumber() {
     // convert cardNumber to string of 4-digit numbers divided by spaces
     final String paddedNumber =
@@ -240,9 +245,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                       color: Color(0xff9e9e9e),
                       child: Center(
                         child: Text(
-                          widget.card.cardName == null
-                              ? 'Name  SURNAME'
-                              : widget.card.cardName,
+                          getLastFourNumbers(),
                           style: TextStyle(
                             fontSize: 15,
                             color: widget.card.textColor,
@@ -251,21 +254,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                         ),
                       ),
                     ),
-                    SizedBox(width: 50),
-                    Container(
-                      height: 40.0,
-                      width: 60.0,
-                      decoration: new BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.rectangle,
-                        border: new Border.all(
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: Center(
-                        child: new Text(
-                            widget.card.cardCode?.toString() ?? '0000'),
+                    SizedBox(width: 60),
+                    Center(
+                      child: Text(
+                        widget.card.cardCode?.toString() ?? '0000',
+                        style: creditStyle.copyWith(fontSize: 12),
                       ),
                     ),
                   ],
