@@ -6,7 +6,7 @@ class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
 
   const CircleButton(
-      {Key key, this.diameter = 20, this.color, this.onTap})
+      {Key key, this.diameter = 40, this.color, this.onTap})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
