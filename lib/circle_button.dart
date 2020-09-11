@@ -5,9 +5,12 @@ class CircleButton extends StatelessWidget {
   final List<Color> color;
   final VoidCallback onTap;
 
-  const CircleButton(
-      {Key key, this.diameter = 40, this.color, this.onTap})
-      : super(key: key);
+  const CircleButton({
+    Key key,
+    this.diameter = 40,
+    this.color,
+    this.onTap,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -17,7 +20,7 @@ class CircleButton extends StatelessWidget {
         height: diameter,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: color,
+              colors: color ?? [Colors.purple, Colors.black],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight),
           shape: BoxShape.circle,
