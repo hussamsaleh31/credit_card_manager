@@ -22,11 +22,19 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isAdding;
 
   final Color greyColor = Color(0xFFd4d8e2);
+
   TextEditingController cardNumberController;
   TextEditingController nameController;
   TextEditingController monthController;
   TextEditingController yearController;
   TextEditingController codeController;
+
+  FocusNode cardNumberNode;
+  FocusNode nameNode;
+  FocusNode monthNode;
+  FocusNode yearNode;
+  FocusNode codeNode;
+
   int addedId;
   CreditCard newCard;
   var curDate = DateTime.now();
@@ -58,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
     newCard = CreditCard();
 
     thisYear = DateTime.now().year % 100;
+
+    cardNumberNode = FocusNode();
+    nameNode = FocusNode();
+    monthNode = FocusNode();
+    yearNode = FocusNode();
+    codeNode = FocusNode();
 
     monthController = new TextEditingController();
     monthController.addListener(() {
@@ -103,6 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
     monthController.dispose();
     yearController.dispose();
     codeController.dispose();
+    cardNumberNode?.dispose();
+    nameNode?.dispose();
+    monthNode?.dispose();
+    yearNode?.dispose();
+    codeNode?.dispose();
     super.dispose();
   }
 
@@ -117,6 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void addCard() async {
+    FocusScope.of(context).unfocus();
     bool shouldInsert = true;
     CreditCard cardToAdd = newCard.copy();
     cardToAdd.id = DateTime.now().microsecondsSinceEpoch;
@@ -208,13 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        title: Text(
-          'Add Card',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: Text('Add Card'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -268,7 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Pick Color',
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
@@ -329,7 +342,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Card Number',
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
@@ -339,6 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextField(
                     controller: cardNumberController,
+                    focusNode: cardNumberNode,
                     maxLength: 16,
                     enabled: !isAdding,
                     buildCounter: (context,
@@ -346,8 +359,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       return SizedBox.shrink();
                     },
                     keyboardType: TextInputType.numberWithOptions(),
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (String value) {
+                      FocusScope.of(context).requestFocus(nameNode);
+                    },
+                    onChanged: (String value) {
+                      if (value.length == 16)
+                        FocusScope.of(context).requestFocus(nameNode);
+                    },
                     inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly
+                      WhitelistingTextInputFormatter.digitsOnly,
                     ],
                     decoration: InputDecoration(
                       hintText: '0000 0000 000 0000',
@@ -367,7 +388,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Full Name',
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
@@ -376,7 +396,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextField(
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (String value) {
+                      FocusScope.of(context).requestFocus(monthNode);
+                    },
                     controller: nameController,
+                    focusNode: nameNode,
                     enabled: !isAdding,
                     decoration: InputDecoration(
                       hintText: 'Name SURNAME',
@@ -402,14 +427,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text(
                               'Month',
                               style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               ),
                             ),
                             TextField(
                               maxLength: 2,
+                              focusNode: monthNode,
                               enabled: !isAdding,
+                              textInputAction: TextInputAction.next,
+                              onSubmitted: (String value) {
+                                FocusScope.of(context).requestFocus(yearNode);
+                              },
                               buildCounter: (context,
                                   {int currentLength,
                                   bool isFocused,
@@ -451,13 +480,21 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text(
                               'Year',
                               style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               ),
                             ),
                             TextField(
                               maxLength: 2,
+                              focusNode: yearNode,
+                              textInputAction: TextInputAction.next,
+                              onSubmitted: (String value) {
+                                FocusScope.of(context).requestFocus(codeNode);
+                              },
+                              onChanged: (String value) {
+                                if (value.length == 2)
+                                  FocusScope.of(context).requestFocus(codeNode);
+                              },
                               enabled: !isAdding,
                               controller: yearController,
                               buildCounter: (context,
@@ -471,11 +508,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 WhitelistingTextInputFormatter.digitsOnly,
                               ],
                               decoration: InputDecoration(
-                                  hintText: '00',
-                                  hintStyle: TextStyle(color: greyColor),
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.green))),
+                                hintText: '00',
+                                hintStyle: TextStyle(color: greyColor),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -489,7 +527,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'CVV',
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
@@ -498,6 +535,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
+                    focusNode: codeNode,
                     maxLength: 4,
                     enabled: !isAdding,
                     controller: codeController,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CircleButton extends StatelessWidget {
   final double diameter;
   final List<Color> color;
+  final String nameLetter;
   final VoidCallback onTap;
 
   const CircleButton({
@@ -10,6 +11,7 @@ class CircleButton extends StatelessWidget {
     this.diameter = 40,
     this.color,
     this.onTap,
+    this.nameLetter,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,12 @@ class CircleButton extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight),
           shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Text(
+            nameLetter ?? '',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );

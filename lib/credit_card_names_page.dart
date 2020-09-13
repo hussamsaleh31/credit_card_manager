@@ -12,11 +12,13 @@ class CreditCardNames extends StatefulWidget {
 class _CreditCardNamesState extends State<CreditCardNames> {
   List<CreditCard> cards;
   bool isLoading;
-
+  String input;
+  List space;
   @override
   void initState() {
     cards = [];
     isLoading = true;
+
     readCards().then((value) {
       if (mounted)
         setState(() {
@@ -40,12 +42,28 @@ class _CreditCardNamesState extends State<CreditCardNames> {
       scrollDirection: Axis.vertical,
       itemCount: cards.length,
       itemBuilder: (context, i) {
+        space = cards[i].cardName.split(" ");
+        String firstName = space[0];
+        String lastName;
+        if (space.length > 1) {
+          lastName = space[1];
+        }
+        String fullName = firstName[0].toUpperCase();
+        if (lastName != null) fullName += lastName[0].toUpperCase();
         return ListTile(
-          title: Text(cards[i].cardName),
+          title: Text(
+            cards[i].cardName,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          
           subtitle: Text(cards[i].cardNumber.toString()),
-          leading: CircleButton(color: cards[i].cardColor),
+          leading: CircleButton(
+            color: cards[i].cardColor,
+            nameLetter: fullName,
+          ),
           dense: true,
-          visualDensity: VisualDensity.compact,
           onTap: () {},
         );
       },

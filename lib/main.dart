@@ -23,20 +23,20 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeChangeBloc, ThemeChangeState>(
           builder: (context, state) {
         return MaterialApp(
-          title: 'Flutter Demo',
-          themeMode: state.themeState.themeMode,
-          darkTheme: darkTheme,
-          theme: lightTheme,
-          home: SplashScreen(
-            'assets/splash.flr',
-            (contxt) => MyApp1(),
-            startAnimation: 'intro',
-            backgroundColor: Color(0xff181818),
-            until: () {
-              return Future.delayed(Duration(seconds: 4));
-            },
-          ),
-        );
+            title: 'Flutter Demo',
+            themeMode: state.themeState.themeMode,
+            darkTheme: darkTheme,
+            theme: lightTheme,
+            home: SplashScreen(
+              'assets/splash.flr',
+              (contxt) => MyApp1(),
+              startAnimation: 'intro',
+              backgroundColor: Color(0xff181818),
+              until: () {
+                return Future.delayed(Duration(seconds: 4));
+              },
+            ),
+          );
       }),
     );
   }

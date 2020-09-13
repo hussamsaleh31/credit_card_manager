@@ -209,14 +209,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
           back: Container(
             width: 340,
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                )
-              ],
               border: border,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               gradient: widget.card.cardColor != null
                   ? LinearGradient(

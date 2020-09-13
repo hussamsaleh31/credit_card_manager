@@ -29,6 +29,20 @@ ThemeData _buildLightTheme() {
       colorScheme: colorScheme,
       textTheme: ButtonTextTheme.primary,
     ),
+    appBarTheme: AppBarTheme(
+        color: Colors.white,
+        brightness: Brightness.light,
+        elevation: 1,
+        textTheme: TextTheme(
+          headline6: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.black,
+          ),
+          bodyText2: TextStyle(
+            color: Colors.black,
+          ),
+        )),
   );
   return base;
 }
@@ -56,6 +70,9 @@ ThemeData _buildDarkTheme() {
     buttonTheme: ButtonThemeData(
       colorScheme: colorScheme,
       textTheme: ButtonTextTheme.primary,
+    ),
+    textTheme: TextTheme(
+      
     ),
   );
   return base;
