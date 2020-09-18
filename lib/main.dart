@@ -1,5 +1,3 @@
-
-
 import 'package:bank/theme.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -93,57 +91,61 @@ class _MyApp1State extends State<MyApp1> {
 
     TextTheme car = Theme.of(context).textTheme;
 
-    return Stack(children: [
-      _buildHome(),
-      Positioned(
-        bottom: 0,
-        child: ClipPath(
-          clipper: NavBarClipper(),
-          child: Container(
-            color: navBarTheme,
-            height: 60,
-            width: MediaQuery.of(context).size.width,
+    return SafeArea(
+      top: true,
+      bottom: true,
+      child: Stack(children: [
+        _buildHome(),
+        Positioned(
+          bottom: 0,
+          child: ClipPath(
+            clipper: NavBarClipper(),
+            child: Container(
+              color: navBarTheme,
+              height: 60,
+              width: MediaQuery.of(context).size.width,
+            ),
           ),
         ),
-      ),
-      Positioned(
-        bottom: 45,
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildNavItem(Icons.home, _selectedIndex == 0, 0),
-            SizedBox(width: 1),
-            _buildNavItem(Icons.people, _selectedIndex == 1, 1),
-            SizedBox(width: 1),
-            _buildNavItem(Icons.settings, _selectedIndex == 2, 2),
-          ],
+        Positioned(
+          bottom: 45,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(Icons.home, _selectedIndex == 0, 0),
+              SizedBox(width: 1),
+              _buildNavItem(Icons.people, _selectedIndex == 1, 1),
+              SizedBox(width: 1),
+              _buildNavItem(Icons.settings, _selectedIndex == 2, 2),
+            ],
+          ),
         ),
-      ),
-      Positioned(
-        bottom: 10,
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            SizedBox(width: 40),
-            Text(
-              'Add Card',
-              style: car.bodyText1,
-            ),
-            SizedBox(width: 90),
-            Text(
-              'Users',
-              style: car.bodyText1,
-            ),
-            SizedBox(width: 90),
-            Text(
-              'Settings',
-              style: car.bodyText1,
-            ),
-          ],
+        Positioned(
+          bottom: 10,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              SizedBox(width: 40),
+              Text(
+                'Add Card',
+                style: car.bodyText1,
+              ),
+              SizedBox(width: 90),
+              Text(
+                'Users',
+                style: car.bodyText1,
+              ),
+              SizedBox(width: 90),
+              Text(
+                'Settings',
+                style: car.bodyText1,
+              ),
+            ],
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 
   _buildNavItem(IconData icon, bool active, int index) {
