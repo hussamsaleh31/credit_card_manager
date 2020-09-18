@@ -21,7 +21,7 @@ ThemeData _buildLightTheme() {
     splashColor: Colors.white24,
     splashFactory: InkRipple.splashFactory,
     accentColor: secondaryColor,
-    canvasColor: Colors.white,
+    canvasColor: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: Colors.white,
     errorColor: const Color(0xFFB00020),
@@ -72,7 +72,7 @@ ThemeData _buildDarkTheme() {
     indicatorColor: Colors.white,
     toggleableActiveColor: secondaryColor,
     accentColor: secondaryColor,
-    canvasColor: const Color(0xFF2A4058),
+    canvasColor: const Color(0xFF6990AF),
     scaffoldBackgroundColor: const Color(0xFF121A26),
     backgroundColor: const Color(0xFF0D1520),
     errorColor: const Color(0xFFB00020),
@@ -82,7 +82,7 @@ ThemeData _buildDarkTheme() {
     ),
     textTheme: TextTheme(),
     iconTheme: IconThemeData(
-      color: const Color(0xFF2A4058),
+      color: const Color(0xFF6990AF),
     ),
   );
   return base;
