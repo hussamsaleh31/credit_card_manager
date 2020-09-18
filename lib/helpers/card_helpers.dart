@@ -14,6 +14,6 @@ Future<List<CreditCard>> readCards() async {
   List<CreditCard> dataCards = dataMaps.map((map) {
     return CreditCard.fromJson(map);
   }).toList();
-  await Future.delayed(Duration(seconds: 1));
+  await Future.delayed(Duration(milliseconds: 600));
   return dataCards;
 }

@@ -245,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             )
           : ListView(
+            padding: EdgeInsets.only(bottom: 100),
               children: [
                 Container(
                   height: 255.0,
@@ -457,6 +458,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   return newValue;
                                 }),
                               ],
+                               onChanged: (String value) {
+                                if ((value.length ==1 && int.tryParse(value)>1) || (value.length==2))
+                                  FocusScope.of(context).requestFocus(yearNode);
+                              },
                               decoration: InputDecoration(
                                 hintText: '00',
                                 hintStyle: TextStyle(color: greyColor),
