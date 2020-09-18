@@ -49,15 +49,6 @@ ThemeData _buildLightTheme() {
         ),
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.blue,
-      selectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-        color: Colors.black,
-      ),
-      elevation: 1,
-    ),
     iconTheme: IconThemeData(
       color: Colors.blue,
     ),
@@ -92,16 +83,6 @@ ThemeData _buildDarkTheme() {
     textTheme: TextTheme(),
     iconTheme: IconThemeData(
       color: const Color(0xFF2A4058),
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: const Color(0xFF2A4058),
-      selectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-        color: Colors.white,
-      ),
-      selectedItemColor: Colors.blue,
-      elevation: 1,
     ),
   );
   return base;
