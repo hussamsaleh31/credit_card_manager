@@ -39,6 +39,11 @@ ThemeData _buildLightTheme() {
           fontSize: 20,
           color: Colors.black,
         ),
+        bodyText1: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+          color: Colors.black,
+        ),
         bodyText2: TextStyle(
           color: Colors.black,
         ),

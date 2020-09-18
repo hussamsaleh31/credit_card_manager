@@ -1,3 +1,5 @@
+
+
 import 'package:bank/theme.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -87,8 +89,9 @@ class _MyApp1State extends State<MyApp1> {
   }
 
   _getNavBar(context) {
-    BottomNavigationBarThemeData navBarTheme =
-        Theme.of(context).bottomNavigationBarTheme;
+    Color navBarTheme = Theme.of(context).canvasColor;
+
+    TextTheme car = Theme.of(context).textTheme;
 
     return Stack(children: [
       _buildHome(),
@@ -97,7 +100,7 @@ class _MyApp1State extends State<MyApp1> {
         child: ClipPath(
           clipper: NavBarClipper(),
           child: Container(
-            color: navBarTheme.backgroundColor,
+            color: navBarTheme,
             height: 60,
             width: MediaQuery.of(context).size.width,
           ),
@@ -125,17 +128,17 @@ class _MyApp1State extends State<MyApp1> {
             SizedBox(width: 40),
             Text(
               'Add Card',
-              style: navBarTheme.selectedLabelStyle,
+              style: car.bodyText1,
             ),
             SizedBox(width: 90),
             Text(
               'Users',
-              style: navBarTheme.selectedLabelStyle,
+              style: car.bodyText1,
             ),
             SizedBox(width: 90),
             Text(
               'Settings',
-              style: navBarTheme.selectedLabelStyle,
+              style: car.bodyText1,
             ),
           ],
         ),
@@ -149,7 +152,7 @@ class _MyApp1State extends State<MyApp1> {
       onTap: () => _onItemTapped(index),
       child: CircleAvatar(
         radius: 30,
-        backgroundColor:iconTheme.color,
+        backgroundColor: iconTheme.color,
         child: CircleAvatar(
           radius: 25,
           backgroundColor:
