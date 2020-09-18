@@ -39,6 +39,7 @@ class _CreditCardNamesState extends State<CreditCardNames> {
         child: Text('No cards Added'),
       );
     return ListView.separated(
+      padding: EdgeInsets.only(bottom:100),
       scrollDirection: Axis.vertical,
       itemCount: cards.length,
       itemBuilder: (context, i) {
