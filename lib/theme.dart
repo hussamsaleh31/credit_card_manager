@@ -21,7 +21,7 @@ ThemeData _buildLightTheme() {
     splashColor: Colors.white24,
     splashFactory: InkRipple.splashFactory,
     accentColor: secondaryColor,
-    canvasColor: Colors.blue,
+    
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: Colors.white,
     errorColor: const Color(0xFFB00020),
@@ -30,7 +30,7 @@ ThemeData _buildLightTheme() {
       textTheme: ButtonTextTheme.primary,
     ),
     appBarTheme: AppBarTheme(
-      color: Colors.blue,
+      color: Colors.white,
       brightness: Brightness.light,
       elevation: 1,
       textTheme: TextTheme(
@@ -39,18 +39,10 @@ ThemeData _buildLightTheme() {
           fontSize: 20,
           color: Colors.black,
         ),
-        bodyText1: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-          color: Colors.black,
-        ),
         bodyText2: TextStyle(
           color: Colors.black,
         ),
       ),
-    ),
-    iconTheme: IconThemeData(
-      color: Colors.blue,
     ),
   );
   return base;
@@ -76,10 +68,6 @@ ThemeData _buildDarkTheme() {
     scaffoldBackgroundColor: const Color(0xFF121A26),
     backgroundColor: const Color(0xFF0D1520),
     errorColor: const Color(0xFFB00020),
-    buttonTheme: ButtonThemeData(
-      colorScheme: colorScheme,
-      textTheme: ButtonTextTheme.primary,
-    ),
     textTheme: TextTheme(),
     iconTheme: IconThemeData(
       color: const Color(0xFF6990AF),

@@ -74,125 +74,25 @@ class _MyApp1State extends State<MyApp1> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: _buildNavBar(context),
-    );
-  }
-
-  _buildNavBar(context) {
-    Color navBarTheme = Theme.of(context).canvasColor;
-
-    TextTheme car = Theme.of(context).textTheme;
-
-    return SafeArea(
-      bottom: true,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
-          scaffoldBackgroundColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
-        ),
-        child: SizedBox(
-          height: 110,
-          child: Stack(
-            fit: StackFit.loose,
-            children: [
-              Positioned(
-                bottom: 0,
-                child: ClipPath(
-                  clipper: NavBarClipper(),
-                  child: Container(
-                    color: navBarTheme,
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 45,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildNavItem(Icons.home, _selectedIndex == 0, 0),
-                    SizedBox(width: 1),
-                    _buildNavItem(Icons.people, _selectedIndex == 1, 1),
-                    SizedBox(width: 1),
-                    _buildNavItem(Icons.settings, _selectedIndex == 2, 2),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 10,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: [
-                    SizedBox(width: 40),
-                    Text(
-                      'Add Card',
-                      style: car.bodyText1,
-                    ),
-                    SizedBox(width: 90),
-                    Text(
-                      'Users',
-                      style: car.bodyText1,
-                    ),
-                    SizedBox(width: 90),
-                    Text(
-                      'Settings',
-                      style: car.bodyText1,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            title: Text('Users'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
-  }
-
-  _buildNavItem(IconData icon, bool active, int index) {
-    IconThemeData iconTheme = Theme.of(context).iconTheme;
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-      child: CircleAvatar(
-        radius: 30,
-        backgroundColor: iconTheme.color,
-        child: CircleAvatar(
-          radius: 25,
-          backgroundColor:
-              active ? Colors.white.withOpacity(0.9) : Colors.transparent,
-          child: Icon(
-            icon,
-            color: active ? Colors.black : Colors.white.withOpacity(0.9),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class NavBarClipper extends CustomClipper<Path> {
-  Path getClip(Size size) {
-    Path path = Path();
-    var sw = size.width;
-    var sh = size.height;
-    path.cubicTo(sw / 12, 0, sw / 12, 2 * sh / 5, 2 * sw / 12, 2 * sh / 5);
-    path.cubicTo(3 * sw / 12, 2 * sh / 5, 3 * sw / 12, 0, 4 * sw / 12, 0);
-    path.cubicTo(
-        5 * sw / 12, 0, 5 * sw / 12, 2 * sh / 5, 6 * sw / 12, 2 * sh / 5);
-    path.cubicTo(7 * sw / 12, 2 * sh / 5, 7 * sw / 12, 0, 8 * sw / 12, 0);
-    path.cubicTo(
-        9 * sw / 12, 0, 9 * sw / 12, 2 * sh / 5, 10 * sw / 12, 2 * sh / 5);
-    path.cubicTo(11 * sw / 12, 2 * sh / 5, 11 * sw / 12, 0, sw, 0);
-    path.lineTo(sw, sh);
-    path.lineTo(0, sh);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
