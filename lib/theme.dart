@@ -21,7 +21,6 @@ ThemeData _buildLightTheme() {
     splashColor: Colors.white24,
     splashFactory: InkRipple.splashFactory,
     accentColor: secondaryColor,
-    
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: Colors.white,
     errorColor: const Color(0xFFB00020),
@@ -31,6 +30,7 @@ ThemeData _buildLightTheme() {
     ),
     appBarTheme: AppBarTheme(
       color: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
       brightness: Brightness.light,
       elevation: 1,
       textTheme: TextTheme(
@@ -49,10 +49,6 @@ ThemeData _buildLightTheme() {
 }
 
 ThemeData _buildDarkTheme() {
-  final ColorScheme colorScheme = const ColorScheme.dark().copyWith(
-    primary: primaryColor,
-    secondary: secondaryColor,
-  );
   final ThemeData base = ThemeData(
     brightness: Brightness.dark,
     accentColorBrightness: Brightness.dark,

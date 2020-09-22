@@ -1,4 +1,5 @@
 import 'package:bank/circle_button.dart';
+import 'package:bank/credit_card_names_page_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'helpers/card_helpers.dart';
@@ -63,7 +64,15 @@ class _CreditCardNamesState extends State<CreditCardNames> {
             nameLetter: fullName,
           ),
           dense: true,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CardDetails(
+                    card: cards[i],
+                  ),
+                ));
+          },
         );
       },
       separatorBuilder: (context, index) {
